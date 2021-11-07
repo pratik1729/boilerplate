@@ -18,6 +18,8 @@
     .float-right {
         width: 85%;
         float: left;
+        overflow-y: hidden;
+
     }
     /*style the search box*/
     #filter {
@@ -50,33 +52,31 @@
  <div class="float-container">
 
 
- <div class="float-right">
-<iframe src="git.html" width="100%" height="100%" id="main_frame"></iframe>
- </div>
+
 
 <div class="float-left" style="background-color:#bbb;">
   <input type="text" id="filter" onkeyup="filter(this.id,'subjects')" placeholder="Search.." title="Type in a category">
   <ul id="subjects">
-    <li><a onclick="newSrc('https://onion-test.blogspot.com/p/git_23.html')">git</a></li>
-    <li><a onclick="newSrc('https://onion-test.blogspot.com/p/bash.html')">bash</a></li>
-    <li><a onclick="newSrc('https://onion-test.blogspot.com/p/ssh.html')">SSH,rsync</a></li>
-    <li><a onclick="newSrc('https://onion-test.blogspot.com/p/proxy.html')">Proxy</a></li>
-    <li><a onclick="newSrc('https://onion-test.blogspot.com/p/vim.html')">Vim</a></li>
-    <li><a onclick="newSrc('https://onion-test.blogspot.com/p/package-managers.html')">Package Managers</a></li>
-    <li><a onclick="newSrc('https://onion-test.blogspot.com/p/git.html')">Virsh</a></li>
-    <li><a onclick="newSrc('https://onion-test.blogspot.com/p/git.html')">GDB</a></li>
-    <li><a onclick="newSrc('https://onion-test.blogspot.com/p/git.html')">System information</a></li>
-    <li><a onclick="newSrc('https://onion-test.blogspot.com/p/git.html')">Process/jobs Monitoring</a></li>
-    <li><a onclick="newSrc('https://onion-test.blogspot.com/p/git.html')">coreutils</a></li>
-    <li><a onclick="newSrc('https://onion-test.blogspot.com/p/git.html')">/proc</a></li>
-    <li><a onclick="newSrc('https://onion-test.blogspot.com/p/git.html')">GRUB</a></li>
-    <li><a onclick="newSrc('https://onion-test.blogspot.com/p/git.html')">System Tracing</a></li>
-    <li><a onclick="newSrc('https://onion-test.blogspot.com/p/git.html')">Important Linux files</a></li>
-    <li><a onclick="newSrc('https://onion-test.blogspot.com/p/git.html')">Build tools</a></li>
-    <li><a onclick="newSrc('https://onion-test.blogspot.com/p/git.html')">LVM</a></li>
-    <li><a onclick="newSrc('https://onion-test.blogspot.com/p/git.html')">Systemd</a></li>
-    <li><a onclick="newSrc('https://onion-test.blogspot.com/p/git.html')">Networking</a></li>
-    <li><a onclick="newSrc('https://onion-test.blogspot.com/p/git.html')">Disk/block devices</a></li>
+    <li><a onclick="newSrc('git.html')">Git</a></li>
+    <li><a onclick="newSrc('bash.html')">bash</a></li>
+    <li><a onclick="newSrc('ssh.html')">SSH,rsync</a></li>
+    <li><a onclick="newSrc('proxy.html')">Proxy</a></li>
+    <li><a onclick="newSrc('vim.html')">Vim</a></li>
+    <li><a onclick="newSrc('package-managers.html')">Package Managers</a></li>
+    <li><a onclick="newSrc('git.html')">Virsh</a></li>
+    <li><a onclick="newSrc('git.html')">GDB</a></li>
+    <li><a onclick="newSrc('git.html')">System information</a></li>
+    <li><a onclick="newSrc('git.html')">Process/jobs Monitoring</a></li>
+    <li><a onclick="newSrc('git.html')">coreutils</a></li>
+    <li><a onclick="newSrc('git.html')">/proc</a></li>
+    <li><a onclick="newSrc('git.html')">GRUB</a></li>
+    <li><a onclick="newSrc('git.html')">System Tracing</a></li>
+    <li><a onclick="newSrc('git.html')">Important Linux files</a></li>
+    <li><a onclick="newSrc('git.html')">Build tools</a></li>
+    <li><a onclick="newSrc('git.html')">LVM</a></li>
+    <li><a onclick="newSrc('git.html')">Systemd</a></li>
+    <li><a onclick="newSrc('git.html')">Networking</a></li>
+    <li><a onclick="newSrc('git.html')">Disk/block devices</a></li>
 
 
 
@@ -94,7 +94,9 @@
 
   </ul>
 </div>
-
+<div class="float-right">
+  <iframe src="gitmd.html" width="100%" height="100%" style="height: 95vh" id="main_frame"></iframe>
+   </div>
 
 </div>
 

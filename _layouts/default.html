@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu:regular,bold&subset=Latin">
+  <link href='//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.1.0/build/styles/agate.min.css' rel='stylesheet'/>
+  <style>
+    body {
+        font-family: Ubuntu, sans-serif;
+    }
+    div.scroll {
+        height: 95%;
+        overflow-x: hidden;
+        overflow-y: auto;
+        text-align:justify;
+    }
+
+    .float-container {
+    border: 3px solid #fff;
+    overflow-y: hidden;
+
+    }
+
+    .float-left {
+        width: 10%;
+        float: left;
+      }
+    .float-right {
+        width: 90%;
+        float: left;
+    }
+    /*style the search box*/
+    #filter {
+        width: 100%;
+        font-size: 18px;
+        padding: 11px;
+        border: 1px solid #ddd;
+    }
+    /*style the topics menu*/      
+    #topics {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+      }
+    #topics li a {
+        padding: 5px;
+        text-decoration: none;
+        color: black;
+        display: block
+      }
+
+    #topics li a:hover {
+        background-color: #eee;
+      }
+    
+  </style>
+</head>
+
+<body>
+
+<div class="float-container" style="height: 97vh">
+
+<div class="float-left" style="background-color:#bbb;">
+  <input type="text" id="filter" onkeyup="filter(this.id,'topics')" placeholder="Search.." title="Type in a category">
+  <ul id="topics">
+    <li><a onclick="scroll_to('setup')">Setup</a></li>
+    <li><a onclick="scroll_to('stat_info')">Status&info</a></li>
+    <li><a onclick="scroll_to('branching')">Branching</a></li>
+    <li><a onclick="scroll_to('staging')">Staging</a></li>
+    <li><a  onclick="scroll_to('commit')">Commit</a></li>
+    <li><a onclick="scroll_to('stash')">Stash</a></li>
+  </ul>
+</div>
+
+<div class="scroll" class="float-right"  id="main">
+    {{ content }}
+
+</div>
+</div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+<script>
+function scroll_to(id) {
+  var elmnt = document.getElementById(id);
+  elmnt.scrollIntoView();
+  var myElement = document.getElementById(id);
+  var topPos = myElement.offsetTop;
+  document.getElementById("main").scrollTop = topPos;
+}
+
+function mycopy(id) {
+    alert(id);
+    var range = document.createRange();
+    var selection = window.getSelection();
+    range.selectNodeContents(document.getElementById(id));
+    selection.removeAllRanges();
+    selection.addRange(range);
+    document.execCommand('copy');
+}
+
+function filter(filter_id,topics_id) {
+  var input, filter, ul, li, a, i;
+  input = document.getElementById(filter_id);
+  filter = input.value.toUpperCase();
+  ul = document.getElementById(topics_id);
+  li = ul.getElementsByTagName("li");
+  for (i = 0; i < li.length; i++) {
+    a = li[i].getElementsByTagName("a")[0];
+    if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
+      li[i].style.display = "";
+    } else {
+      li[i].style.display = "none";
+    }
+  }
+}
+window.onload = function(){
+
+    document.body.addEventListener('dblclick', function(e){
+       var target = e.target || e.srcElement;        
+       //if (target.className.indexOf("highlight") !== -1 || target.parentNode.className.indexOf("highlight") !== -1){
+            var range, selection;
+
+            if (document.body.createTextRange) {
+                range = document.body.createTextRange();
+                range.moveToElementText(target);
+                range.select();
+            } else if (window.getSelection) {
+                selection = window.getSelection();
+                range = document.createRange();
+                range.selectNodeContents(target);
+                selection.removeAllRanges();
+                selection.addRange(range);
+                document.execCommand('copy');
+                //alert("copied")
+            }
+            e.stopPropagation();
+       //}              
+
+    });
+};
+
+</script>
+<script src='//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.1.0/build/highlight.min.js'></script>
+<script>
+    hljs.highlightAll();
+</script>
+
+</body>
+</html>
