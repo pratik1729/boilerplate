@@ -8,7 +8,7 @@
         font-family: Ubuntu, sans-serif;
     }
     div.scroll {
-        height: 95%;
+        height: 90%;
         overflow-x: hidden;
         overflow-y: auto;
         text-align:justify;
@@ -16,8 +16,6 @@
 
     .float-container {
     border: 3px solid #fff;
-    overflow-y: hidden;
-
     }
 
     .float-left {
@@ -52,22 +50,96 @@
         background-color: #eee;
       }
     
+    table {
+        border-collapse: collapse;
+        width: 100%;
+        border: 1px solid black;
+    }
+    th {
+        border: 1px solid black;
+    }
+    td {
+        text-align: left;
+        vertical-align: text-top;
+        background-color: #333; /* this color is same as highlight.js..change this if u change theme*/
+        border: 1px solid #eee;
+    }
+    
   </style>
 </head>
 
 <body>
 
-<div class="float-container" style="height: 97vh">
+<div class="float-container">
 
 <div class="float-left" style="background-color:#bbb;">
   <input type="text" id="filter" onkeyup="filter(this.id,'topics')" placeholder="Search.." title="Type in a category">
   <ul id="topics">
-    
+    <li><a onclick="scroll_to('apt')">apt</a></li>
+    <li><a onclick="scroll_to('pip')">pip</a></li>
+    <li><a onclick="scroll_to('git')">git</a></li>
+    <li><a onclick="scroll_to('curl')">curl</a></li>
   </ul>
 </div>
 
-<div class="scroll" class="float-right"  id="main">
-    {{ content }}
+<div class="scroll" class="float-right" id="main">
+<h1 id="apt">APT</h1>
+<p>
+APT proxy setting in /etc/apt/apt.conf.
+</p>
+<pre><code ondblclick="mycopy(this.id)" id="apt_conf" class="language-text"><pre>
+Acquire::http::Proxy "http://username:password@proxy_server:proxy_port";
+</pre></code></pre>
+<p>
+Command line apt proxy arguments. Use -o
+</p>
+<pre><code ondblclick="mycopy(this.id)" id="apt_command" class="language-text"><pre>
+apt -o Acquire::http::Proxy="https://username:password@proxy_server:proxy_port" install/update
+</pre></code></pre>
+
+
+
+
+<h1 id="pip">pip</h1>
+<p>
+Pip proxy setting in ~/.config/pip/pip.conf
+</p>
+<pre><code ondblclick="mycopy(this.id)" id="pip_conf" class="language-text"><pre>
+[global]
+proxy = http://username:password@proxy_server:proxy_port
+</pre></code></pre>
+<p>
+Command line pip proxy arguments. Use --proxy.
+</p>
+<pre><code ondblclick="mycopy(this.id)" id="pip_command" class="language-text"><pre>
+pip install --proxy "https://username:password@proxy_server:proxy_port" [package_name]
+</pre></code></pre>
+    
+<h1 id="git">GIT</h1>
+<p>
+GIT proxy setting in ~/.gitconfig
+</p>
+<pre><code ondblclick="mycopy(this.id)" id="git_conf" class="language-text"><pre>
+[http]
+    proxy = http://username:password@proxy_server:proxy_port
+    sslverify = false
+</pre></code></pre>
+
+<h1 id="curl">CURL</h1>
+<p>
+curl proxy setting in ~/.curlrc
+</p>
+<pre><code ondblclick="mycopy(this.id)" id="curl_conf" class="language-text"><pre>
+proxy="http://username:password@proxy_server:proxy_port"
+</pre></code></pre>
+<p>
+Command line curl proxy arguments. Use -x or --proxy.
+</p>
+<pre><code ondblclick="mycopy(this.id)" id="curl_command" class="language-text"><pre>
+curl --proxy "http://username:password@proxy_server:proxy_port" "URL_of_interest"
+</pre></code></pre>
+    
+
 
 </div>
 </div>
@@ -144,72 +216,6 @@ function filter(filter_id,topics_id) {
     }
   }
 }
-function populate_search(){
-ul = document.getElementById("topics")
-var allElements = document.getElementsByTagName("h2");
-
-for (var i = 0, n = allElements.length; i < n; ++i) {
-  var el = allElements[i];
-  var listItem = document.createElement("li");
-  var x = document.createElement("A"); 
-
-  function newSrc(val) {
-  document.getElementById("main_frame").src=val;
-}
-
-function filter(filter_id,topics_id) {
-  var input, filter, ul, li, a, i;
-  input = document.getElementById(filter_id);
-  filter = input.value.toUpperCase();
-  ul = document.getElementById(topics_id);
-  li = ul.getElementsByTagName("li");
-  for (i = 0; i < li.length; i++) {
-    a = li[i].getElementsByTagName("a")[0];
-    if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
-      li[i].style.display = "";
-    } else {
-      li[i].style.display = "none";
-    }
-  }
-}
-
-  </script>
-</body>
-</html>
-
-  x.setAttribute("onclick", `scroll_to('${el.id}')`); 
-  x.textContent = el.innerText;
-
-  listItem.appendChild(x)
-  ul.appendChild(listItem);
-}
-}
-window.onload = function(){
-
-    document.body.addEventListener('dblclick', function(e){
-       var target = e.target || e.srcElement;        
-
-       var range, selection;
-
-            if (document.body.createTextRange) {
-                range = document.body.createTextRange();
-                range.moveToElementText(target);
-                range.select();
-            } else if (window.getSelection) {
-                selection = window.getSelection();
-                range = document.createRange();
-                range.selectNodeContents(target);
-                selection.removeAllRanges();
-                selection.addRange(range);
-                document.execCommand('copy');
-                //alert("copied")
-            }
-            e.stopPropagation();
-       //}              
-
-    });
-    populate_search();
-};
 
 </script>
 <script src='//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.1.0/build/highlight.min.js'></script>

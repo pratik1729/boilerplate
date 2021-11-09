@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu:regular,bold&subset=Latin">
+  <link href='//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.1.0/build/styles/agate.min.css' rel='stylesheet'/>
+  <style>
+    body {
+        font-family: Ubuntu, sans-serif;
+    }
+    div.scroll {
+        height: 90%;
+        overflow-x: hidden;
+        overflow-y: auto;
+        text-align:justify;
+    }
+
+    .float-container {
+    border: 3px solid #fff;
+    }
+
+    .float-left {
+        width: 10%;
+        float: left;
+      }
+    .float-right {
+        width: 90%;
+        float: left;
+    }
+    /*style the search box*/
+    #filter {
+        width: 100%;
+        font-size: 18px;
+        padding: 11px;
+        border: 1px solid #ddd;
+    }
+    /*style the topics menu*/      
+    #topics {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+      }
+    #topics li a {
+        padding: 5px;
+        text-decoration: none;
+        color: black;
+        display: block
+      }
+
+    #topics li a:hover {
+        background-color: #eee;
+      }
+    
+    table {
+        border-collapse: collapse;
+        width: 100%;
+        border: 1px solid black;
+    }
+    th {
+        border: 1px solid black;
+    }
+    td {
+        text-align: left;
+        vertical-align: text-top;
+        background-color: #333; /* this color is same as highlight.js..change this if u change theme*/
+        border: 1px solid #eee;
+    }
+    
+  </style>
+</head>
+
+<body>
+
+<div class="float-container">
+
+<div class="float-left" style="background-color:#bbb;">
+  <input type="text" id="filter" onkeyup="filter(this.id,'topics')" placeholder="Search.." title="Type in a category">
+  <ul id="topics">
+    <li><a onclick="scroll_to('ssh')">SSH</a></li>
+    <li><a onclick="scroll_to('scp')">SCP</a></li>
+    <li><a onclick="scroll_to('rsync')">rsync</a></li>
+    <li><a onclick="scroll_to('ssh_config')">SSH config</a></li>
+    <li><a  onclick="scroll_to('ssh_tunnel')">SSH tunnel</a></li>
+  </ul>
+</div>
+
+<div class="scroll" class="float-right" id="main">
+<h1 id="ssh">SSH</h1>
+<p>
+SSH to a remote machine.
+-vv : for debug
+-p :  SSH port, default is 22
+</p>
+<pre><code ondblclick="mycopy(this.id)" id="basic_ssh" class="language-text"><pre>
+ssh -vv -p [port] [user]@[remote_ip]
+</pre></code></pre>
+
+
+<h1 id="scp">SCP</h1>
+<p>
+Copy from local machine to remote machine.<br>
+-r : copy folder<br>
+-P :  SCP port, default is 22
+</p>
+<pre><code ondblclick="mycopy(this.id)" id="basic_scp1" class="language-text"><pre>
+scp -r -P [port] [./path/on/local/machine/] [user]@[remote_ip]:[/path/on/remote/]
+</pre></code></pre>
+
+<p>
+Copy from remote machine to local machine.
+</p>
+<pre><code ondblclick="mycopy(this.id)" id="basic_scp2" class="language-text"><pre>
+scp -r -P [port] [user]@[remote_ip]:[/path/on/remote/] [./path/on/local/machine/]
+</pre></code></pre>
+
+*Local machine :  The machine where the command is entered.<br>Remote machine must have SSH server installed.<br>Windows machine may not have SSH server installed in corporate setting.
+
+<h1 id="rsync">rsync</h1>
+<p>
+Sync from local machine to remote machine called push operation.<br>
+</p>
+<pre><code ondblclick="mycopy(this.id)" id="basic_scp1" class="language-text"><pre>
+rsync -lrtuvz [./path/on/local/machine/] [user]@[remote_ip]:[/path/on/remote/]
+</pre></code></pre>
+
+<p>
+Sync from remote machine to local machine called pull operation.<br>
+</p>
+<pre><code ondblclick="mycopy(this.id)" id="basic_scp1" class="language-text"><pre>
+rsync -lrtuvz [user]@[remote_ip]:[/path/on/remote/] [./path/on/local/machine/]
+</pre></code></pre>
+-l : copy symlinks as symlinks<br>
+-r : recursive into directories<br>
+-t : preserve modification times<br>
+-u : skip files that are newer on the receiver<br>
+-v : increase verbosity as -vv<br>
+-z : compress file data during transfer<br>
+-a : archive mode<br>
+-P : show progress<br>
+--delete : by default rsync does not delete extraneous files from destination<br>
+-n,--dry-run : perform a trial run with no changes made
+
+<p>
+It is common in software development to write code on local machine and build/run on some remote machine. <br>
+We can use the rsync daemon to make the development process easier and flexible.<br>
+First create config file on the local machine where you are writing code. Example .rsyncd.conf file - 
+</p>
+<pre><code ondblclick="mycopy(this.id)" id="basic_scp1" class="language-text"><pre>
+uid = 4096
+gid = 4096
+hosts allow = 127.0.0.1 ::1
+hosts deny = *
+dont compress = *.gz *.tgz *.zip *.lzh *.bz2 *.jpg *.png
+
+[<strong>work</strong>]
+    path = &ltpath to <strong>work</strong> dir&gt
+    exclude = *.o .git *.d CMakeFiles
+    read only = no
+    use chroot = no
+</pre></code></pre>    
+
+<p>
+Start rsync daemon. It listens on port 873 by default.
+</p>
+<pre><code ondblclick="mycopy(this.id)" id="basic_scp1" class="language-text"><pre>
+rsync --daemon --config=.rsyncd.conf
+</pre></code></pre>    
+
+<p>
+In order to use rsync daemon method, login to remote machine by creating a reverse SSH tunnel to the local machine.
+[remote_hostname] must be same as in ~/.ssh/config file. Remote port number 65248 can be changed to any free port.
+</p>
+<pre><code ondblclick="mycopy(this.id)" id="basic_scp1" class="language-text"><pre>
+ssh -R 65248:localhost:873 [remote_hostname]
+</pre></code></pre>
+
+<p>
+After login to remote machine, the synchronization can be done as follows. On remote machine enter:
+</p>
+<pre><code ondblclick="mycopy(this.id)" id="basic_scp1" class="language-text"><pre>
+rsync -lrtuvz rsync://localhost:65248/work/source_dir /path/to/dir/
+</pre></code></pre>
+
+<h1 id="ssh_config">SSH config</h1>
+<p>
+SSH config files are saved in ~/.ssh/config. You can directly connect to remote machine<br>
+ProxyCommand is useful when you want to SSH into a machine via some other machine.
+</p>
+<pre><code ondblclick="mycopy(this.id)" id="basic_scp1" class="language-text"><pre>
+Host [any_name]
+    HostName [remote IP]
+    Port [SSH port for the remote]
+    User [username]
+    IdentityFile [path to your RSA private key]
+    ProxyCommand ssh -W %h:%p [previous host any_name in this file]
+    ServerAliveInterval 60
+</pre></code></pre>
+
+<h1 id="ssh_tunnel">SSH tunnel</h1>
+<p>
+Local port forwarding. Redirect local_port, via SSH, to remote_address:remote_port.<br>
+Here, remote_address:remote_port is part of the remote network. It can be any address:port visible on the remote network, even localhost:port.
+</p>
+<pre><code ondblclick="mycopy(this.id)" id="basic_scp1" class="language-text"><pre>
+ssh -L local_port:remote_address:remote_port [username]@[remote_ip] 
+</pre></code></pre>
+
+<p>
+Remote port forwarding. Redirect traffic to remote_port, via SSH, to local_address:local_port.<br>
+</p>
+<pre><code ondblclick="mycopy(this.id)" id="basic_scp1" class="language-text"><pre>
+ssh -R remote_port:local_address:local_port [username]@[remote_ip]
+</pre></code></pre>
+
+<p>
+One useful application of SSH tunneling is to enable internet access on a machine which is not directly
+connected to the internet.<br>Suppose you have three machines - remote1, remote2, local. And remote2 has direct access to internet.<br>
+We can use SSH tunneling to provide internet access to remote1.
+First, we need to install squid proxy on remote2. It listens on port 3128 by default. Run the following commands on
+local machine.
+</p>
+<pre><code ondblclick="mycopy(this.id)" id="basic_scp1" class="language-text"><pre>
+ssh -L 65428:localhost:3128 remote2
+ssh -R 65428:localhost:65428 remote1
+</pre></code></pre>
+
+Internet can be accessed on remote1 through port 65428.
+</div>
+</div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+<script>
+function scroll_to(id) {
+  var elmnt = document.getElementById(id);
+  elmnt.scrollIntoView();
+  var myElement = document.getElementById(id);
+  var topPos = myElement.offsetTop;
+  document.getElementById("main").scrollTop = topPos;
+}
+
+function mycopy(id) {
+    alert(id);
+    var range = document.createRange();
+    var selection = window.getSelection();
+    range.selectNodeContents(document.getElementById(id));
+    selection.removeAllRanges();
+    selection.addRange(range);
+    document.execCommand('copy');
+}
+
+function filter(filter_id,topics_id) {
+  var input, filter, ul, li, a, i;
+  input = document.getElementById(filter_id);
+  filter = input.value.toUpperCase();
+  ul = document.getElementById(topics_id);
+  li = ul.getElementsByTagName("li");
+  for (i = 0; i < li.length; i++) {
+    a = li[i].getElementsByTagName("a")[0];
+    if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
+      li[i].style.display = "";
+    } else {
+      li[i].style.display = "none";
+    }
+  }
+}
+
+</script>
+<script src='//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.1.0/build/highlight.min.js'></script>
+<script>
+    hljs.highlightAll();
+</script>
+
+</body>
+</html>

@@ -1,22 +1,37 @@
 ---
 layout: default
-title: About
+title: GIT
 ---
-# About page
+# GIT
+
+## Setup
 
 ### Initialize empty git repository
 
 > git config --global http.proxy http://username:password@proxy.server.com:port
 
-``` javascript
-function test() {
-    console.log("test");
-}
-```
+lop
+* pop
+    1. dfd
+    2. fgd
+* lop
 
-| c1        | c2        |
-| --------- | --------- |
-| ```pop``` | ```pop``` |
-| pop       | lol       |
-| ew        |     |
-|           |           |
+### Configure username and email ID
+
+abc.  
+xyz
+
+### Set global proxy.
+
+
+### Set credential helper for Windows.
+
+## Status&info
+
+## Branching
+
+## Staging
+
+## Commit
+
+## Stash
