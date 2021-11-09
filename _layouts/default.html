@@ -153,30 +153,6 @@ for (var i = 0, n = allElements.length; i < n; ++i) {
   var listItem = document.createElement("li");
   var x = document.createElement("A"); 
 
-  function newSrc(val) {
-  document.getElementById("main_frame").src=val;
-}
-
-function filter(filter_id,topics_id) {
-  var input, filter, ul, li, a, i;
-  input = document.getElementById(filter_id);
-  filter = input.value.toUpperCase();
-  ul = document.getElementById(topics_id);
-  li = ul.getElementsByTagName("li");
-  for (i = 0; i < li.length; i++) {
-    a = li[i].getElementsByTagName("a")[0];
-    if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
-      li[i].style.display = "";
-    } else {
-      li[i].style.display = "none";
-    }
-  }
-}
-
-  </script>
-</body>
-</html>
-
   x.setAttribute("onclick", `scroll_to('${el.id}')`); 
   x.textContent = el.innerText;
 
