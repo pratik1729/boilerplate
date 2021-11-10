@@ -51,6 +51,31 @@
     #topics li a:hover {
         background-color: #eee;
       }
+
+      h3 {
+  background: #464444;
+  text-align:left;
+  font-weight: normal;
+  color: white;
+  margin-bottom: 10px;
+  margin-top: 3px;
+
+  /*border-left: 3px solid #ccc;*/
+  
+  padding: 0.5em 10px;
+}
+h2, hr {
+  margin-bottom: 0px;
+  margin-top: 20px;
+}
+
+h1 {
+  color: chocolate;
+}
+
+blockquote p {
+  display: inline;
+}
     
   </style>
 </head>
@@ -116,7 +141,7 @@ function scroll_to(id) {
   elmnt.scrollIntoView();
   var myElement = document.getElementById(id);
   var topPos = myElement.offsetTop;
-  document.getElementById("main").scrollTop = topPos;
+  document.getElementById("main").scrollTop = topPos-5;
 }
 
 function mycopy(id) {
@@ -146,7 +171,7 @@ function filter(filter_id,topics_id) {
 }
 function populate_search(){
 ul = document.getElementById("topics")
-var allElements = document.getElementsByTagName("h2");
+var allElements = document.getElementsByTagName("h1");
 
 for (var i = 0, n = allElements.length; i < n; ++i) {
   var el = allElements[i];
@@ -163,26 +188,17 @@ for (var i = 0, n = allElements.length; i < n; ++i) {
 window.onload = function(){
 
     document.body.addEventListener('dblclick', function(e){
-       var target = e.target || e.srcElement;        
+    var target = e.target || e.srcElement;        
 
-       var range, selection;
+    var range, selection;
 
-            if (document.body.createTextRange) {
-                range = document.body.createTextRange();
-                range.moveToElementText(target);
-                range.select();
-            } else if (window.getSelection) {
-                selection = window.getSelection();
-                range = document.createRange();
-                range.selectNodeContents(target);
-                selection.removeAllRanges();
-                selection.addRange(range);
-                document.execCommand('copy');
-                //alert("copied")
-            }
-            e.stopPropagation();
-       //}              
-
+    selection = window.getSelection();
+    range = document.createRange();
+    range.selectNodeContents(target);
+    selection.removeAllRanges();
+    selection.addRange(range);
+    document.execCommand('copy');
+               
     });
     populate_search();
 };
