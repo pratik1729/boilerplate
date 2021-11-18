@@ -28,9 +28,15 @@ ______________________
 
 # Status&info
 
-## Show linear history of commits
+## git logs
+
+Show linear history of commits
 
 ### git log
+
+History in tree form, more useful when branches exist
+
+### git log \--all \--graph \--decorate \--oneline
 
 ## Show the content of the object with ID [hash]
 
@@ -45,6 +51,16 @@ ______________________
 ## List all branches in local and remote repositories.
 
 ### git branch -a
+
+## Information about remote
+
+To get remote URL:
+
+### git config \--get remote.origin.url
+
+To show full information about remote repo:
+
+### git remote show origin
 
 ## See all tags
 
@@ -117,3 +133,19 @@ ______________________
 ## Reapply the changes to your working copy and without removing it from the stash.
 
 ### git stash apply "stash@{2}"
+
+## Undo applied stash
+
+### git checkout -f
+
+# Patches
+
+## Create patch files for uncommited changes
+
+For unstaged changes
+
+### git diff > filename.patch
+
+For staged changes
+
+### git diff \--cached > filename.patch
