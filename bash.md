@@ -183,11 +183,11 @@ Numerical Calculations are written in $((...)).
 [//]: # ("code table")
 <table>
 <tr>
-<th> stdout to file       </th>
-<th> stdout to file append   </th>
-<th> stderr to file        </th>
+<th> stdout to file     </th>
+<th> stdout to file append </th>
+<th> stderr to file      </th>
 <th> stderr to stdout </th>
-<th> stderr to null        </th>
+<th> stderr to null      </th>
 <th> stdout&stderr to null </th>
 <th> feed file into stdin </th>
 </tr>
@@ -196,22 +196,22 @@ Numerical Calculations are written in $((...)).
 <p>./a.out &gt; file.txt </p>
 </td>
 <td>
-<p>./a.out &gt;&gt; file.txt </p>
+<p>./a.out &gt;&gt; file.txt   </p>
 </td>
 <td>
 <p>./a.out 2&gt; file.txt </p>
 </td>
 <td>
-<p>./a.out 2&gt;&amp;1   </p>
+<p>./a.out 2&gt;&amp;1     </p>
 </td>
 <td>
 <p>./a.out 2&gt;/dev/null </p>
 </td>
 <td>
-<p>./a.out &amp;&gt;/dev/null </p>
+<p>./a.out &amp;&gt;/dev/null   </p>
 </td>
 <td>
-<p>./a.out &lt; file.txt </p>
+<p>./a.out &lt; file.txt   </p>
 </td>
 </tr>
 </table>

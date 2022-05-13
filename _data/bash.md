@@ -90,9 +90,9 @@ Numerical Calculations are written in $((...)).
 
 [//]: # ("code table")
 
-| stdout to file       | stdout to file append   | stderr to file        | stderr to stdout | stderr to null        | stdout&stderr to null | feed file into stdin |
-| -------------------- | ----------------------- | --------------------- | ---------------- | --------------------- | --------------------- | -------------------- |
-| ./a.out > file.txt | ./a.out >> file.txt | ./a.out 2> file.txt | ./a.out 2>&1   | ./a.out 2>/dev/null | ./a.out &>/dev/null | ./a.out < file.txt |
+| stdout to file     | stdout to file append | stderr to file      | stderr to stdout | stderr to null      | stdout&stderr to null | feed file into stdin |
+| ------------------ | --------------------- | ------------------- | ---------------- | ------------------- | --------------------- | -------------------- |
+| ./a.out > file.txt | ./a.out >> file.txt   | ./a.out 2> file.txt | ./a.out 2>&1     | ./a.out 2>/dev/null | ./a.out &>/dev/null   | ./a.out < file.txt   |
 
 <p>
 bash is used for interactive scripts execution and dash is for non-interactive scripts.<br>
