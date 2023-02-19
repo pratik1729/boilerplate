@@ -149,3 +149,15 @@ For unstaged changes
 For staged changes
 
 ### git diff \--cached > filename.patch
+
+# Rectify
+
+## Git message
+
+Rectify incorrect git message
+
+### git commit \--amend -m "New commit message"
+
+If you've already pushed your commit up to your remote branch, then - after amending your commit locally (as described above) - you'll also need to force push the commit with this.  
+May cause problem if remote repo is shared.
+### git push [remote] [branch] \--force

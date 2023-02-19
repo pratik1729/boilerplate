@@ -27,3 +27,4 @@ title: VIM
 | ={                  | auto-ident the current code block                       |
 | :%s/before/after/gc | Replace string with confirm                             |
 | tabnew file.txt     | open file.txt in new tab                                |
+| ctrl+o              | jump back to the previous (older) location              |
