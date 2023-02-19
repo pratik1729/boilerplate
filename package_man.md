@@ -39,10 +39,10 @@ title: BASH
 | dpkg -P package                   | remove all of an installed package, including its configuration files. -P=purge. |
 
 
-# PIP
+# pip
+
 | Command                | Description                                                                           |
 | ---------------------- | ------------------------------------------------------------------------------------- |
 | pip list               | List all installed modules and their verison                                          |
 | pip show [module_name] | Information about modules                                                             |
 | pip freeze             | List the packages that were installed with pip (pipreqs module is better alternative) |
-|                        |                                                                                       |
