@@ -24,15 +24,36 @@ title: GIT
 
 ### git config \--global credential.helper wincred
 
+## Set aliases
+
+### git config --global alias.hist "log \--all \--graph \--decorate \--oneline"
+
+Alias are saved in ~/.gitconfig file. Use this alias as:
+
+### git hist
+
+### .gitignore file is used to ignore unwanted files and folders. Its syntax is one expression per line. It can be a file glob also. 
 ______________________
 
 # Status&info
+
+## Repository status
+
+### git status
 
 ## git logs
 
 Show linear history of commits
 
 ### git log
+
+### git log [commit1]...[commit2]
+
+### git log \--since="3 days ago"
+
+Specific history of an individual file. Returns commits that involve this file.
+
+### git log \-- [file]
 
 History in tree form, more useful when branches exist
 
@@ -79,6 +100,21 @@ To show full information about remote repo:
 ### git show [hash]
 ______________________
 
+# Clone & Pull
+
+## Cloning remote repository
+
+### git clone [repo.git]
+
+The remote master branch is named as 'origin/master'. 'origin' is reference to remote repository.
+
+## Update local repository with changes from remote.
+
+Name of remote repo and branch is entered.
+
+### git pull origin master
+______________________
+
 # Branching
 
 ## Create new branch.
@@ -98,13 +134,39 @@ ______________________
 
 # Staging
 
-## Add all files for Staging.
+## Add all files, folders and all subfolders recursively for Staging.
 
 ### git add .
 
 ## Add [file] to staging area. -p is used for interactive staging.
 
 ### git add -p [file]
+
+Same file can be in the staging area as well as working directory(unstaged area). Some changes to the file were staged and new changes are still in the working directory.  
+
+Add all unstaged as well as untracked files to staging area at once with -A option:
+
+### git add -A
+
+## Unstage changes
+
+### git reset HEAD [file]
+
+## Discard changes in working directory
+
+### git checkout \-- [file]
+______________________
+
+# Rename, Move, Delete
+
+## Rename or move file using git mv
+
+It is recommended to rename/move files using git mv. This helps git track/stage that rename/move has happened. This operation can be undoed also.
+
+### git mv [file] [new file name]
+
+Delete actually happens in the repository when commit is done. This command stages the delete operation, the file is deleted from the filesystem. Reset operation unstages the delete operation but does not actually restore the file. You need to do git checkout... command for that.
+### git rm [file]
 ______________________
 
 # Commit
@@ -114,6 +176,17 @@ ______________________
 ### git commit .
 
 ### git commit -m [message]
+
+Add and commit one liner. This can only be done with files that can be tracked. Tracked files are those which are commited or added to staging area previously
+
+### git commit -am [message]
+______________________
+
+# Push
+
+Name of remote repo and branch is entered.
+
+### git push origin master
 ______________________
 
 # Stash
