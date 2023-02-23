@@ -24,6 +24,10 @@ title: GIT
 
 ### git config \--global credential.helper wincred
 
+## See all global config, use -e to open it in default editor
+
+### git config --global --list
+
 ## Set aliases
 
 ### git config --global alias.hist "log \--all \--graph \--decorate \--oneline"
@@ -62,12 +66,6 @@ History in tree form, more useful when branches exist
 ## Show the content of the object with ID [hash]
 
 ### git cat-file -p [hash]
-
-## Show the changes from the head or between two commits.
-
-### git diff
-
-### git diff [commit1] [commit2] [file]
 
 ## List all branches in local and remote repositories.
 
@@ -210,6 +208,49 @@ ______________________
 ## Undo applied stash
 
 ### git checkout -f
+______________________
+
+# diff
+
+## Setup a visual diff tool
+
+### git config \--global diff.tool [name of tool = p4merge]
+
+### git config \--global difftool.p4merge.path ["path to executable"]
+
+Don't prompt everytime we resolve a conflict
+
+### git config \--global difftool.prompt false
+
+## Compare working directory and staging area
+
+### git diff
+
+## Compare working directory and last commit on current branch
+
+### git diff HEAD
+
+## Compare staging area and last commit on current branch
+
+### git diff \--staged HEAD
+
+Add "\-- [file]" to above diff commands to limit comparisons to one file
+
+## Compare two commits.
+
+### git diff [commit1] [commit2] [file]
+
+Compare HEAD and HEAD-1
+
+### git diff HEAD HEAD^
+
+## Compare local and remote master branch
+
+### git difftool main origin/main
+
+diff and difftool can be used interchangebly in above commands.
+
+_____________________
 
 # Patches
 
